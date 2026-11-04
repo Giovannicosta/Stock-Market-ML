@@ -7,7 +7,7 @@ on:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     permissions:
       contents: read
     steps:
@@ -23,8 +23,15 @@ jobs:
         run: python -m src.data --start 2000-01-01 --delay 2
       - name: Initial single-stock baseline
         run: python -m src.model --fee-bps 10
-      - name: Walk-forward portfolio and market regimes
+      - name: V2 daily walk-forward portfolio
         run: python -m src.walk_forward --fee-bps 10
+      - name: V3 weekly benchmark-relative rotation
+        run: python -m src.v3 --fee-bps 10
+      - name: V3 deterministic replay using the same downloaded CSVs
+        run: |
+          cp reports/v3/summary.json /tmp/v3-first.json
+          python -m src.v3 --fee-bps 10
+          cmp /tmp/v3-first.json reports/v3/summary.json
       - name: Upload metrics and reports only
         if: always()
         uses: actions/upload-artifact@v4
