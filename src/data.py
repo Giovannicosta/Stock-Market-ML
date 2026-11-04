@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import time
 from datetime import datetime, timedelta, timezone
@@ -57,9 +58,11 @@ def download_all(tickers: list[str], start: str, end: str, root: Path, delay: fl
             df = download_one(ticker, start, end)
             outfile = raw / f'{ticker}.csv'
             df.to_csv(outfile, date_format='%Y-%m-%d', float_format='%.10g')
+            digest = hashlib.sha256(outfile.read_bytes()).hexdigest()
             result = dict(ticker=ticker, status='ok', rows=len(df),
                           first_date=str(df.index[0].date()),
-                          last_date=str(df.index[-1].date()), file=str(outfile))
+                          last_date=str(df.index[-1].date()), file=str(outfile),
+                          csv_sha256=digest)
             print(f'{ticker}: {len(df)} sessions, {result["first_date"]}–{result["last_date"]}')
         except Exception as exc:
             result = dict(ticker=ticker, status='error', error=str(exc))
