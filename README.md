@@ -50,3 +50,16 @@ Yahoo Finance's unofficial interface is intended for personal research. Respect 
 ## Next improvements
 
 Walk-forward/purged cross-validation; broader survivorship-safe universe; paper-trading journal; data vendor with historical index membership; slippage and market-impact modeling; compare SPY benchmark on matching dates; probability calibration and regime analysis.
+
+
+
+## V3 weekly research experiment
+
+Run `python -m src.v3 --fee-bps 10` after downloading historical quotes.
+V3 predicts each stock's **five-session return relative to SPY**, applies a
+two-model disagreement filter, and falls back to SPY if active rotation does
+not clear a validation-only hurdle. Results: `reports/v3/summary.json`.
+
+See [V3 methodology](docs/v3-research-design.md). V3's historical test overlaps
+the period already examined in V2, so it **does not constitute fresh prospective
+evidence**. Real-money trades are intentionally unsupported.
