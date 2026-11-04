@@ -1,0 +1,11 @@
+# Initial liquid US ticker sample. SPY is an ETF benchmark, not an individual company.
+AAPL
+MSFT
+GOOGL
+AMZN
+NVDA
+JPM
+JNJ
+XOM
+PG
+SPY
