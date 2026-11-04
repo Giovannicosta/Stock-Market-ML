@@ -4,14 +4,14 @@ This version is an **experiment**, not a proven trading algorithm or a broker-co
 
 ## Run
 
-\`\`\`bash
+```bash
 pip install -r requirements.txt
 python -m unittest discover -s tests -v
 python -m src.data --start 2000-01-01
 python -m src.v3 --fee-bps 10
-\`\`\`
+```
 
-Results: \`reports/v3/summary.json\` locally or in the GitHub Actions \`stock-ml-metrics\` artifact.
+Results: `reports/v3/summary.json` locally or in the GitHub Actions `stock-ml-metrics` artifact.
 
 ## Key changes from V2
 

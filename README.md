@@ -63,3 +63,5 @@ not clear a validation-only hurdle. Results: `reports/v3/summary.json`.
 See [V3 methodology](docs/v3-research-design.md). V3's historical test overlaps
 the period already examined in V2, so it **does not constitute fresh prospective
 evidence**. Real-money trades are intentionally unsupported.
+
+**V3 validation alert:** independent downloads produced materially different historical backtest results; see [the replication report](docs/v3-backtest-2026-11-04.md). This experiment is not ready for live trades.
