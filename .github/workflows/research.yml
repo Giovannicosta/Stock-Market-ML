@@ -30,6 +30,11 @@ jobs:
         run: python -m src.walk_forward --fee-bps 10
       - name: V3 weekly benchmark-relative rotation
         run: python -m src.v3 --fee-bps 10
+      - name: V3 deterministic replay using the same downloaded CSVs
+        run: |
+          cp reports/v3/summary.json /tmp/v3-first.json
+          python -m src.v3 --fee-bps 10
+          cmp /tmp/v3-first.json reports/v3/summary.json
       - name: Upload metrics and reports only
         if: always()
         uses: actions/upload-artifact@v4
