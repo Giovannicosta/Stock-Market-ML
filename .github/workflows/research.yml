@@ -7,7 +7,7 @@ on:
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     permissions:
       contents: read
     steps:
@@ -21,14 +21,17 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Download history (2000 onward)
         run: python -m src.data --start 2000-01-01 --delay 2
-      - name: Fit models and validate trading rules
+      - name: Initial single-stock baseline
         run: python -m src.model --fee-bps 10
-      - name: Upload evaluation metrics only (not third-party market data)
+      - name: Walk-forward portfolio and market regimes
+        run: python -m src.walk_forward --fee-bps 10
+      - name: Upload metrics and reports only
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: stock-ml-metrics
           path: |
+            reports/**/*.json
             reports/*.json
             data/metadata/download_summary.json
           retention-days: 14
