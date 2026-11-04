@@ -3,6 +3,9 @@ name: Stock market ML research
 on:
   pull_request:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/v3-relative-weekly-risk-gate
 
 jobs:
   research:
