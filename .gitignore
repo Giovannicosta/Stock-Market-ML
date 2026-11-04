@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+.vscode/
+.env
+.DS_Store
+Thumbs.db
+# Provider market data cannot be redistributed without checking licensing.
+data/raw/
+data/metadata/
+reports/
