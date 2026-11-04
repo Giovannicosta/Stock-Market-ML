@@ -26,8 +26,9 @@ def spy_features(spy):
     out['spy_trend_200'] = close / close.rolling(200).mean() - 1
     vol_cutoff = out['spy_vol_21'].rolling(252, min_periods=126).quantile(.75)
     out['spy_high_vol'] = (out['spy_vol_21'] > vol_cutoff).astype(float)
-    out['regime'] = np.where(out['spy_trend_200'] > 0, 'bull', 'bear') + '_' + np.where(
-        out['spy_high_vol'] > 0, 'high_vol', 'normal_vol')
+    trends = np.where(out['spy_trend_200'] > 0, 'bull', 'bear')
+    vol_state = np.where(out['spy_high_vol'] > 0, 'high_vol', 'normal_vol')
+    out['regime'] = [f'{trend}_{vol}' for trend, vol in zip(trends, vol_state)]
     out['spy_target'] = spy['Open'].shift(-2) / spy['Open'].shift(-1) - 1
     return out.replace([np.inf, -np.inf], np.nan)
 
